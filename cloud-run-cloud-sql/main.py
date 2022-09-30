@@ -27,12 +27,12 @@ def init_db_connection():
 def init_unix_connection_engine(db_config):
     pool = sqlalchemy.create_engine(
         sqlalchemy.engine.url.URL(
-            drivername="postgres+pg8000",
-            host=os.environ.get('DB_HOST'),
+
             port=os.environ.get('DB_PORT'),
             username=os.environ.get('DB_USER'),
             password=os.environ.get('DB_PASS'),
             database=os.environ.get('DB_NAME'),
+            query= { "unix_sock": "/cloudsql/{}/rankstrategy-ce64c:us-central1:googlesql".format(os.environ.get(CLOUD_SQL_CONNECTION_NAME) }
         ),
         **db_config
     )
