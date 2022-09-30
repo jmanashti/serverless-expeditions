@@ -27,12 +27,11 @@ def init_db_connection():
 def init_unix_connection_engine(db_config):
     pool = sqlalchemy.create_engine(
         sqlalchemy.engine.url.URL(
-
-            port=os.environ.get('DB_PORT'),
+            drivername="mysql+pymysql",
             username=os.environ.get('DB_USER'),
             password=os.environ.get('DB_PASS'),
             database=os.environ.get('DB_NAME'),
-            query= { "unix_sock": "/cloudsql/{}/rankstrategy-ce64c:us-central1:googlesql".format(os.environ.get(CLOUD_SQL_CONNECTION_NAME) }
+            query={"unix_socket": "/cloudsql/{}/rankstrategy-ce64c:us-central1:googlesql".format(os.environ.get(CLOUD_SQL_CONNECTION_NAME) }
         ),
         **db_config
     )
